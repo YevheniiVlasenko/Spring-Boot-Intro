@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import project.bookstore.model.Book;
 
 @Repository
-public class BookRepositoryImpl implements BookRepository{
+public class BookRepositoryImpl implements BookRepository {
     @Override
     public Book save(Book book) {
         return null;

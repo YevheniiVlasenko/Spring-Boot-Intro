@@ -1,5 +1,6 @@
 package project.bookstore;
 
+import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -8,12 +9,11 @@ import org.springframework.context.annotation.Bean;
 import project.bookstore.model.Book;
 import project.bookstore.services.BookService;
 
-import java.math.BigDecimal;
-
 @SpringBootApplication
 public class SpringBootIntroApplication {
 
     private BookService bookService;
+
     @Autowired
     public SpringBootIntroApplication(BookService bookService) {
         this.bookService = bookService;
