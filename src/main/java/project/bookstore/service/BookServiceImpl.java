@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import project.bookstore.dto.BookDto;
 import project.bookstore.dto.CreateBookRequestDto;
+import project.bookstore.exception.EntityNotFoundException;
 import project.bookstore.mapper.BookMapper;
 import project.bookstore.model.Book;
 import project.bookstore.repository.BookRepository;
@@ -12,6 +13,7 @@ import project.bookstore.repository.BookRepository;
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
+    private static final String GET_BY_ID_MESSAGE = "Failed to save book to db";
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
@@ -23,11 +25,14 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> findAll() {
-        return bookRepository.getAll().stream().map(bookMapper::toDto).toList();
+        return bookRepository.getAll().stream()
+                .map(bookMapper::toDto)
+                .toList();
     }
 
     @Override
     public BookDto getBookById(Long id) {
-        return bookMapper.toDto(bookRepository.getById(id));
+        return bookMapper.toDto(bookRepository.getById(id)
+                .orElseThrow(() -> new EntityNotFoundException(GET_BY_ID_MESSAGE)));
     }
 }
