@@ -2,7 +2,7 @@ package project.bookstore.controller;
 
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,21 +19,12 @@ import project.bookstore.service.BookService;
 
 @RestController
 @RequestMapping("/books")
-
+@RequiredArgsConstructor
 public class BookController {
     private static final String FIND_BY_ID_MSG = "Failed to find object by id = ";
     private final BookRepository bookRepository;
     private final BookService bookService;
     private final BookMapper bookMapper;
-
-    @Autowired
-    public BookController(BookRepository bookRepository,
-                          BookService bookService,
-                          BookMapper bookMapper) {
-        this.bookRepository = bookRepository;
-        this.bookService = bookService;
-        this.bookMapper = bookMapper;
-    }
 
     @GetMapping
     public List<BookDto> getAll() {

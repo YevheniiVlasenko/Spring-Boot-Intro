@@ -5,14 +5,17 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import project.bookstore.exception.EntityNotFoundException;
 import project.bookstore.model.Book;
 
 @Repository
 @RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
     private static final String SAVE_EXCEPTION_MESSAGE = "Failed to save book to db";
+    private static final String GET_BY_ID_MESSAGE = "Failed to save book to db";
     private final EntityManagerFactory entityManagerFactory;
 
     @Override
@@ -44,7 +47,8 @@ public class BookRepositoryImpl implements BookRepository {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             Query query = entityManager.createQuery("SELECT b FROM Book b WHERE b.id = :bookId");
             query.setParameter("bookId", id);
-            return (Book) query.getSingleResult();
+            return (Book) Optional.of(query.getSingleResult())
+                    .orElseThrow(() -> new EntityNotFoundException(GET_BY_ID_MESSAGE));
         }
     }
 }
