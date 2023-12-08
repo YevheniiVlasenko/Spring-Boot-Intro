@@ -3,7 +3,6 @@ package project.bookstore.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -41,11 +40,9 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public Optional<Book> getById(Long id) {
+    public Optional<Book> findById(Long id) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            Query query = entityManager.createQuery("SELECT b FROM Book b WHERE b.id = :bookId");
-            query.setParameter("bookId", id);
-            return Optional.of((Book) query.getSingleResult());
+            return Optional.ofNullable(entityManager.find(Book.class, id));
         }
     }
 }

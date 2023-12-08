@@ -1,7 +1,6 @@
 package project.bookstore.controller;
 
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project.bookstore.dto.BookDto;
 import project.bookstore.dto.CreateBookRequestDto;
-import project.bookstore.exception.EntityNotFoundException;
 import project.bookstore.mapper.BookMapper;
 import project.bookstore.model.Book;
 import project.bookstore.repository.BookRepository;
@@ -21,7 +19,6 @@ import project.bookstore.service.BookService;
 @RequestMapping("/books")
 @RequiredArgsConstructor
 public class BookController {
-    private static final String FIND_BY_ID_MSG = "Failed to find object by id = ";
     private final BookRepository bookRepository;
     private final BookService bookService;
     private final BookMapper bookMapper;
@@ -33,8 +30,7 @@ public class BookController {
 
     @GetMapping("/{id}")
     public BookDto getBookById(@PathVariable Long id) {
-        return Optional.of(bookService.getBookById(id))
-                        .orElseThrow(() -> new EntityNotFoundException(FIND_BY_ID_MSG + id));
+        return bookService.getBookById(id);
     }
 
     @PostMapping
