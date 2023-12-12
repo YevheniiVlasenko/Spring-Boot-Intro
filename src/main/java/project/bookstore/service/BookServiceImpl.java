@@ -13,7 +13,7 @@ import project.bookstore.repository.BookRepository;
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
-    private static final String GET_BY_ID_MESSAGE = "Failed to save book to db";
+    private static final String GET_BY_ID_MESSAGE = "No book with such id";
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
@@ -39,5 +39,18 @@ public class BookServiceImpl implements BookService {
     @Override
     public void safeDelete(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public Book update(Long id, CreateBookRequestDto createBookRequestDto) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(GET_BY_ID_MESSAGE));
+        book.setTitle(createBookRequestDto.getTitle());
+        book.setAuthor(createBookRequestDto.getAuthor());
+        book.setIsbn(createBookRequestDto.getIsbn());
+        book.setPrice(createBookRequestDto.getPrice());
+        book.setDescription(createBookRequestDto.getDescription());
+        book.setCoverImage(createBookRequestDto.getCoverImage());
+        return bookRepository.save(book);
     }
 }
