@@ -13,7 +13,7 @@ import project.bookstore.repository.BookRepository;
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
-    private static final String GET_BY_ID_MESSAGE = "Failed to save book to db";
+    private static final String GET_BY_ID_MESSAGE = "No book with such id";
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
@@ -25,7 +25,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> findAll() {
-        return bookRepository.getAll().stream()
+        return bookRepository.findAll().stream()
                 .map(bookMapper::toDto)
                 .toList();
     }
@@ -34,5 +34,18 @@ public class BookServiceImpl implements BookService {
     public BookDto getBookById(Long id) {
         return bookMapper.toDto(bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(GET_BY_ID_MESSAGE)));
+    }
+
+    @Override
+    public void safeDelete(Long id) {
+        bookRepository.deleteById(id);
+    }
+
+    @Override
+    public BookDto update(Long id, CreateBookRequestDto createBookRequestDto) {
+        Book newBook = bookMapper.toModel(createBookRequestDto);
+        newBook.setId(id);
+        Book savedBook = bookRepository.save(newBook);
+        return bookMapper.toDto(savedBook);
     }
 }
