@@ -3,7 +3,6 @@ package project.bookstore.dto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import lombok.Data;
@@ -37,6 +36,5 @@ public class CreateBookRequestDto {
     private String description;
 
     @URL(message = INVALID_IMAGE_URL_MSG)
-    @Null
     private String coverImage;
 }
