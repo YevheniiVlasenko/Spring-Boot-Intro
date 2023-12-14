@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 
+
 @Data
 public class CreateBookRequestDto {
     private static final String EMPTY_TITLE_MSG = "Book title field can't be empty";
