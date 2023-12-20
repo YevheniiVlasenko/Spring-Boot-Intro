@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import project.bookstore.annotation.fieldmatch.FieldMatch;
+import project.bookstore.fieldvalidator.FieldMatch;
 
 @FieldMatch(first = "password", second = "passwordRepeat")
 @Data

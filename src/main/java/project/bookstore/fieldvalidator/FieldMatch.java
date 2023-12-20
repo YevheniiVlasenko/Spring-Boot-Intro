@@ -1,4 +1,4 @@
-package project.bookstore.annotation.fieldmatch;
+package project.bookstore.fieldvalidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.TYPE, ElementType.FIELD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FieldMatchValidator.class)
 @Documented
@@ -26,5 +26,4 @@ public @interface FieldMatch {
     @interface List {
         FieldMatch[] value();
     }
-
 }

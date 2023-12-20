@@ -1,5 +1,3 @@
-//TODO: finish the table creation changelog file
-
 databaseChangeLog:
   - changeSet:
       id: 2
