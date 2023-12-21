@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert_customer
+      author: vlasenko
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 2
+              - column:
+                  name: email
+                  value: customer@example.com
+              - column:
+                  name: password
+                  value: qwerty
+              - column:
+                  name: first_name
+                  value: Bob
+              - column:
+                  name: last_name
+                  value: Ross

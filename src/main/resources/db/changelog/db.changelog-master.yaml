@@ -12,5 +12,7 @@ databaseChangeLog:
       file: db/changelog/changes/04-create-users-roles-table.yaml
 
   - include:
-      file: db/changelog/changes/05-insert-adminuser-to-db.yaml
+      file: db/changelog/changes/05-insert-admin-user-to-db.yaml
 
+  - include:
+      file: db/changelog/changes/06-add-customer-user-to-db.yaml
