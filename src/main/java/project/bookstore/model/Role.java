@@ -20,7 +20,7 @@ public class Role {
 
     @Column(nullable = false, unique = true)
     @JdbcTypeCode(SqlTypes.VARCHAR)
-    private String name;
+    private RoleName name;
 
     public enum RoleName {
         ADMIN,
