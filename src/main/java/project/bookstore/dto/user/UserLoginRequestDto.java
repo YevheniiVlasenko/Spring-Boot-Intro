@@ -9,9 +9,9 @@ import lombok.Data;
 public class UserLoginRequestDto {
     @NotEmpty
     @Email
-    String email;
+    private String email;
 
     @NotEmpty
     @Size(min = 8)
-    String password;
+    private String password;
 }
