@@ -30,9 +30,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/auth/**", "/registration").permitAll()
-                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**",
-                                        "/swagger-resources/**").permitAll()
+                                .requestMatchers("/auth/**",
+                                            "/swagger-ui/**",
+                                            "/v3/api-docs/**")
+                                            .permitAll()
                                 .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

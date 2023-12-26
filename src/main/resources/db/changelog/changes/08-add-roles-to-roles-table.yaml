@@ -21,5 +21,3 @@ databaseChangeLog:
               - column:
                   name: name
                   value: USER
-
-
