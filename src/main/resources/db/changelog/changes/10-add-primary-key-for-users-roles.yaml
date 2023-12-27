@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 11
+      author: vlasenko
+      changes:
+        - addPrimaryKey:
+            columnNames: users_id, roles_id
+            constraintName: pk_users_roles
+            tableName: users_roles

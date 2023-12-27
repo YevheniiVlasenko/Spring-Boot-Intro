@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10
+      author: vlasenko
+      preConditions:
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM users WHERE email='admin@example.com'
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM roles WHERE name='ADMIN'
+      changes:
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: users_id
+                  valueComputed: (SELECT id FROM users WHERE email='admin@example.com')
+              - column:
+                  name: roles_id
+                  valueComputed: (SELECT id FROM roles WHERE name='ADMIN')
