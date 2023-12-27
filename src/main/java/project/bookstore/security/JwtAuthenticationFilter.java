@@ -19,6 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final int TOKEN_START_INDEX = 7;
+    private static final String BEARER_HEADER = "Bearer ";
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
@@ -29,8 +30,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String token = getToken(request);
 
-        boolean isTokenValid = jwtUtil.isValidToken(token);
-        if (token != null && jwtUtil.isValidToken(token)) {
+        boolean isTokenValid = jwtUtil.isTokenValid(token);
+        if (token != null && jwtUtil.isTokenValid(token)) {
             String username = jwtUtil.getUsername(token);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -42,8 +43,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private String getToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(TOKEN_START_INDEX);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_HEADER)) {
+            return bearerToken.substring(BEARER_HEADER.length());
         }
         return null;
     }
